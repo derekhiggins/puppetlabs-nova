@@ -74,6 +74,7 @@ class { 'keystone':
   log_verbose  => true,
   log_debug    => true,
   catalog_type => 'sql',
+  notify => [Class['glance::keystone::auth'], Class['nova::keystone::auth']],
 }
 # set up keystone admin users
 class { 'keystone::roles::admin':
