@@ -42,6 +42,11 @@ class nova::api(
     service_name   => $::nova::params::api_service_name,
   }
 
+  package { 'python-cinderclient':
+      ensure => 'present',
+      notify => Service[$::nova::params::api_service_name],
+  }
+
   nova_config {
     'api_paste_config':     value => '/etc/nova/api-paste.ini';
     'enabled_apis':         value => $enabled_apis;
