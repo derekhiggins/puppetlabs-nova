@@ -29,8 +29,8 @@ class nova::api(
 
   include nova::params
 
-  Package<| title == 'nova-api' |> -> Exec['nova-db-sync']
-  Package<| title == 'nova-api' |> -> Nova_paste_api_ini<| |>
+  Package<| title == $::nova::params::api_package_name |> -> Exec['nova-db-sync']
+  Package<| title == $::nova::params::api_package_name |> -> Nova_paste_api_ini<| |>
 
   Nova_paste_api_ini<| |> ~> Exec['post-nova_config']
   Nova_paste_api_ini<| |> ~> Service['nova-api']
