@@ -23,7 +23,8 @@ class nova::network(
   $config_overrides = {},
   $create_networks  = true,
   $ensure_package   = 'present',
-  $install_service  = true
+  $install_service  = true,
+  $force_dhcp_release  = true
 ) {
 
   include nova::params
@@ -72,7 +73,8 @@ class nova::network(
       # I am not proud of this
       $parameters = { fixed_range      => $fixed_range,
                       public_interface => $public_interface,
-                      flat_interface   => $private_interface
+                      flat_interface   => $private_interface,
+                      force_dhcp_release  => $force_dhcp_release
       }
       $resource_parameters = merge($config_overrides, $parameters)
       $flatdhcp_resource = {'nova::network::flatdhcp' => $resource_parameters }
